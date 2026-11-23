@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="RYN SMS" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <title>RYN School Management System</title>
+    <meta name="description" content="Full-stack School Management System with MySQL schema, RBAC for Admin, Teacher, Student, and Parent, attendance tracking, gradebook, fee management, and printable reports." />
+    <meta property="og:title" content="RYN School Management System" />
+    <meta property="og:description" content="Full-stack School Management System with MySQL schema, RBAC for Admin, Teacher, Student, and Parent, attendance tracking, gradebook, fee management, and printable reports." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./assets/index-QxuQxqpI.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-rZGFnGZ0.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <body class="bg-slate-50 text-slate-900 antialiased font-sans">
+    <div id="root">
+      <div id="ryn-boot-splash" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,sans-serif;color:#0f172a;background:#f8fafc">
+        <div style="width:40px;height:40px;border:3px solid #cbd5e1;border-top-color:#4f46e5;border-radius:50%;animation:ryn-spin .8s linear infinite"></div>
+        <p style="margin:14px 0 4px;font-size:14px;font-weight:600;color:#0f172a">Loading RYN School Management System...</p>
+        <p style="margin:0;font-size:12px;color:#64748b">Preparing workspace and database connection</p>
+      </div>
+      <style>@keyframes ryn-spin{to{transform:rotate(360deg)}}</style>
+    </div>
+    <script>
+      (function () {
+        var rootEl = document.getElementById('root');
+        function resetCachesAndReload() {
+          try {
+            if (window.caches && window.caches.keys) {
+              window.caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (k) { return window.caches.delete(k); }));
+              }).catch(function () {});
+            }
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+              navigator.serviceWorker.getRegistrations().then(function (regs) {
+                regs.forEach(function (r) { r.unregister(); });
+              }).catch(function () {});
+            }
+          } catch (e) {}
+          setTimeout(function () { window.location.reload(); }, 250);
+        }
+        window.__RYN_RESET_CACHE_AND_RELOAD__ = resetCachesAndReload;
+        function showBootError(msg) {
+          if (window.__RYN_APP_MOUNTED__ || !rootEl) return;
+          rootEl.innerHTML =
+            '<div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:48px auto;padding:24px;background:#fff;border:1px solid #fecdd3;border-radius:16px;color:#0f172a;box-shadow:0 10px 25px rgba(15,23,42,.08)">' +
+            '<h2 style="margin:0 0 8px;font-size:16px;color:#be123c">Unable to Load RYN SMS</h2>' +
+            '<p style="margin:0 0 14px;font-size:13px;color:#475569;line-height:1.5">' + msg + '</p>' +
+            '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+            '<button onclick="location.reload()" style="padding:8px 14px;background:#0f172a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Reload Page</button>' +
+            '<button onclick="window.__RYN_RESET_CACHE_AND_RELOAD__()" style="padding:8px 14px;background:#e11d48;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Clear Cache &amp; Reload</button>' +
+            '</div></div>';
+        }
+        window.addEventListener('error', function (e) {
+          if (window.__RYN_APP_MOUNTED__) return;
+          var target = e && e.target;
+          var tag = target && target.tagName ? String(target.tagName).toUpperCase() : '';
+          // Only treat critical script or stylesheet failures as boot blockers (ignore missing favicons/images)
+          if (tag && tag !== 'SCRIPT' && !(tag === 'LINK' && target.rel === 'stylesheet')) {
+            return;
+          }
+          var src = target && (target.src || target.href);
+          var msg = (e && e.message)
+            ? e.message
+            : (src
+                ? 'Failed to load required application file: ' + src + '. Please reload or verify all assets/ files were uploaded.'
+                : 'A script failed to load. Clear browser cache or verify uploaded files.');
+          showBootError(msg);
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          if (!window.__RYN_APP_MOUNTED__) {
+            var reason = e && e.reason ? (e.reason.message || String(e.reason)) : 'Startup promise rejected.';
+            showBootError(reason);
+          }
+        });
+        setTimeout(function () {
+          if (!window.__RYN_APP_MOUNTED__) {
+            showBootError('The application took too long to start (stale browser cache or blocked network request after hard reload). Click "Clear Cache & Reload" below.');
+          }
+        }, 12000);
+      })();
+    </script>
+  </body>
+</html>
+

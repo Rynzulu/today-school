@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="55%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcd34d" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect x="20" y="20" width="472" height="472" rx="96" fill="none" stroke="#6366f1" stroke-opacity="0.35" stroke-width="4" />
+  <!-- Shield Crest -->
+  <path d="M256 76 L396 124 V246 C396 340 335 404 256 436 C177 404 116 340 116 246 V124 Z" fill="#1e293b" fill-opacity="0.72" stroke="url(#goldGrad)" stroke-width="10" stroke-linejoin="round" />
+  <!-- Graduation Cap -->
+  <polygon points="256,142 362,192 256,242 150,192" fill="#ffffff" />
+  <path d="M188 214 V266 C188 282 218 298 256 298 C294 298 324 282 324 266 V214 L256 246 Z" fill="#e0e7ff" />
+  <!-- Tassel -->
+  <path d="M348 198 V264" stroke="url(#goldGrad)" stroke-width="9" stroke-linecap="round" />
+  <circle cx="348" cy="272" r="11" fill="url(#goldGrad)" />
+  <!-- Open Book Accent -->
+  <path d="M174 328 C202 316 232 320 256 334 C280 320 310 316 338 328 V368 C310 356 280 360 256 374 C232 360 202 356 174 368 Z" fill="#6366f1" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" />
+  <line x1="256" y1="334" x2="256" y2="374" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,61 @@
+# RYN Enterprise Security & Rewrite Configuration (iPanel / cPanel Compatible)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Allow Let's Encrypt / AutoSSL domain validation without redirects
+  RewriteCond %{REQUEST_URI} ^/\.well-known/
+  RewriteRule ^ - [L]
+
+  # Pass Authorization Bearer header through Apache CGI / PHP-FPM
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Allow direct access to existing files and directories (css, js, images, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Allow direct access to the PHP API backend (in root or any XAMPP/cPanel/iPanel subdirectory)
+  RewriteCond %{REQUEST_URI} (api/|backend-php/)
+  RewriteRule ^ - [L]
+
+  # Never serve index.html for missing JS/CSS/media assets (avoids blank MIME errors)
+  RewriteCond %{REQUEST_URI} !\.(js|mjs|css|map|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|webmanifest)$ [NC]
+  RewriteRule . index.html [L]
+</IfModule>
+
+<IfModule mod_setenvif.c>
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+
+# Security Hardening Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header unset Server
+  Header unset X-Powered-By
+
+  # Prevent stale PWA service worker & HTML caching across deployments
+  <FilesMatch "^(index\.html|sw\.js|registerSW\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Block unauthorized direct access to sensitive configuration and source files
+<FilesMatch "(\.env|\.git|\.sql|\.json|Database\.php|\.md|\.ryn_php_secret|\.educore_php_secret)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Enable Gzip compression if mod_deflate is available
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json
+</IfModule>
